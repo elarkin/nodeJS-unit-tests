@@ -79,33 +79,28 @@ var print_details = function() {
 			puts(err.stack);
 		}
 	}
-	puts('');
 };
 
 var run_suite = function(suite, suite_name) {
-	puts('');
-	print('Beginning Suite: ');
-	puts(suite_name);
-	puts('');
-
 	var test_name;
+	var test;
+	var test_path;
 	for(test_name in suite) {
 		if(/^test.+/.test(test_name)) {
 			if(suite.hasOwnProperty(test_name)) {
-				var test = suite[test_name];
+				test = suite[test_name];
+				test_path = suite_name + "/" + test_name;
 				if(test.constructor === Function) {
-					exec_test(test_name,test,suite);
+					exec_test(test_path,test,suite);
 				} else {
 					suites.push({
-						"name":suite_name + "/" + test_name,
+						"name":test_path,
 						"suite":test
 					});
 				}
 			}
 		}
 	}
-
-	print_details();
 };
 
 var run = function(root_suite,suite_name) {
@@ -123,6 +118,8 @@ var run = function(root_suite,suite_name) {
 		suite = suites.pop();
 		run_suite(suite.suite,suite.name);
 	}
+
+	print_details();
 };
 
 exports.run = run;
