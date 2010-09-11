@@ -3,24 +3,28 @@ var puts = require('sys').puts;
 var assert = require('assert');
 var test = require('test');
 
-var suite = {};
-suite["test"] = function() {
+var suite, subtest
+suite = {};
+subtest = {};
+
+subtest["test"] = suite["test"] = function() {
 	//I should not execute
 };
-suite["test pass"] = function() {
+
+subtest["test pass"] = suite["test pass"] = function() {
 	//pass;
 };
-suite["test error"] = function() {
+
+subtest["test error"] = suite["test error"] = function() {
 	throw {
 		message: "This is an example of just some random error"
 	};
 };
 
-suite["test assert failure"] = function() {
+subtest["test assert failure"] = suite["test assert failure"] = function() {
 	assert.ok(false,"Normal Assertion Failure");
 };
 
-puts("You should see one dot (a pass), one E (an error), and one F (a failure)");
-puts("========================================================================");
+suite["test subtest"] = subtest
 
 test.run(suite);
