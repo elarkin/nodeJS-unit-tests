@@ -13,7 +13,7 @@ var exec_test = function(name, func, suite) {
 		func.call(suite);
 		print('.'); // success!
 	} catch(err) {
-		var is_error = err.name !== 'AssertionError';
+		var is_error = !(err instanceof(assert.AssertionError));
 		failures.push({
 			"name": name,
 			"err": err,
@@ -42,37 +42,11 @@ var print_details = function() {
 		if(test.is_error){
 			print("EXCEPTION: ");
 			puts(test.name);
-			puts('');
 			puts(inspect(test.err));
-			puts('');
 		} else {
 			print("FAILURE: ");
 			puts(test.name);
-			puts('');
-
-			var err = test.err;
-		
-			if(err.message) {
-				print("Message: ");
-				puts(err.message);
-			}
-
-			if(err.actual !== undefined || err.expected !== undefined) {
-				print("Actual: ");
-				puts(inspect(err.actual));
-				print("Expected: ");
-				puts(inspect(err.expected));
-			}
-
-			if(err.operator) {
-				print("Operator: ");
-				puts(inspect(err.operator));
-			}
-
-			if(err.stack !== undefined) {
-				puts("Stacktrace:");
-				puts(err.stack);
-			}
+			puts(test.err.toString());
 		}
 	}
 };
