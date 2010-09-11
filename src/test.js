@@ -30,14 +30,12 @@ var exec_test = function(name, func, suite) {
 	}
 };
 
-var print_details = function(suite_name) {
+var print_details = function() {
 	if(tests_with_errors.length === 0 && tests_with_failures.length === 0){
 		return; //nothing to print
 	}
 
 	puts('');
-	print('Suite: ');
-	puts(suite_name);
 	puts('');
 	var test;
 	var len = tests_with_errors.length;
@@ -96,11 +94,11 @@ var run_suite = function(suite, suite_name) {
 			if(suite.hasOwnProperty(test_name)) {
 				var test = suite[test_name];
 				if(test.constructor === Function) {
-					exec_test(test_name,suite[test_name],suite);
+					exec_test(test_name,test,suite);
 				} else {
 					suites.push({
 						"name":suite_name + "/" + test_name,
-						"suite":suite
+						"suite":test
 					});
 				}
 			}
