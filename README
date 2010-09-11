@@ -1,0 +1,3 @@
+Implementing the CommonJS test.js module found here: http://wiki.commonjs.org/wiki/Unit_Testing/1.0#Test
+
+To run an example test suite: node self_test.js
