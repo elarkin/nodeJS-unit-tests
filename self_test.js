@@ -1,5 +1,6 @@
 require.paths.push('src');
 var puts = require('sys').puts;
+var print = require('sys').print;
 var assert = require('assert');
 var test = require('test');
 
@@ -31,4 +32,5 @@ suite["test branch1"] = subtest1;
 subtest2["test branch2 subtests"] = subtest1["test branch1 subtest"] = subtest1_subtest;
 suite["test branch2"] = subtest2;
 
-test.run(suite);
+print(test.run(suite));
+puts(" failed tests");

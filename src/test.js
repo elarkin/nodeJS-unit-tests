@@ -36,6 +36,7 @@ var print_details = function() {
 	puts('');
 	var test;
 	var len = failures.length;
+	var num_failed = len;
 	while(len--) {
 		test = failures.shift();
 		puts('');
@@ -49,6 +50,7 @@ var print_details = function() {
 			puts(test.err.toString());
 		}
 	}
+	return num_failed;
 };
 
 var run_suite = function(suite, suite_name) {
@@ -89,7 +91,7 @@ var run = function(root_suite,suite_name) {
 		run_suite(suite.suite,suite.name);
 	}
 
-	print_details();
+	return print_details();
 };
 
 exports.run = run;
